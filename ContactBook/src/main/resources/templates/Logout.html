@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>You'r logged out</title>
+    <style>
+        body {
+        background-image:url("https://st4.depositphotos.com/1688079/20558/i/450/depositphotos_205580568-stock-photo-logout-isolated-blue-background-abstract.jpg");
+            background-size: cover;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            color: white;
+            font-family: Arial, sans-serif;
+        }
+
+        .error-container {
+            background-color: rgba(0, 0, 0, 0.7);
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+        }
+
+        h1 {
+            margin-top: 0;
+        }
+
+        a {
+        border:1px solid black;
+            color: black;
+            padding:10px;
+            text-decoration: none;
+            background-color: white;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="error-container">
+        <h1>Your Logged out</h1>
+        <a th:href="@{/}">Login Page</a>
+    </div>
+
+</body>
+
+</html>

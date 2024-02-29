@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="ISO-8859-1">
+<title>Smart Contact Management</title>
+<style type="text/css">
+body {
+	background: rgb(212, 96, 13);
+	background: linear-gradient(90deg, rgba(212, 96, 13, 1) 0%,
+		rgba(24, 66, 214, 0.16850490196078427) 52%, rgba(40, 191, 13, 1) 100%);
+}
+li a:hover{
+background-color: blue;
+}
+.search-container {
+	position: relative;
+}
+</style>
+<link rel="stylesheet"
+	th:href="@{https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css}">
+
+<link rel="stylesheet"
+	href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
+	integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
+	crossorigin="anonymous">
+
+</head>
+<body>
+	<nav class="navbar navbar-expand-lg navbar-light bg-light" id="navid">
+		<a class="navbar-brand" th:href="@{/homepage}"><b>Smart
+				Contact Book</b></a>
+		<button class="navbar-toggler" type="button" data-toggle="collapse"
+			data-target="#navbarNav" aria-controls="navbarNav"
+			aria-expanded="false" aria-label="Toggle navigation">
+			<span class="navbar-toggler-icon"></span>
+		</button>
+		<div class="collapse navbar-collapse" id="navbarNav">
+			<ul class="navbar-nav">
+				<li class="nav-item"><a class="nav-link active"
+					th:href="@{/showContacts}" style="background-color: Red">All
+						Contacts</a></li>
+				<li class="nav-item"><a class="nav-link" th:href="@{/add}">Add
+						Contacts</a></li>
+				<li class="nav-item"><a class="nav-link"
+					th:href="@{/getProfile}">view Profile</a></li>
+				<li class="nav-item"><a class="nav-link" th:href="@{/delete}">Logout</a>
+				</li>
+				</ul>
+				<span class="navbar-text ml-auto" th:text="${user.uName}" style="text-align: right;">
+				</span>
+		</div>
+	</nav>
+	<div class="container my-2">
+
+		<h1>Contact List</h1>
+		<div class="input-group">
+    <!-- Search Form -->
+    <div class="search-container my-4 col-md-6">
+        <form th:action="@{/searchContacts}" class="d-flex">
+            <input name="prefix" type="text" class="form-control" placeholder="Search your Contacts">
+            <input type="submit" class="btn btn-primary ml-2" value="Search" />
+        </form>
+    </div>
+
+    <!-- Filter Form -->
+    <div class="filter my-4 col-md-6" style="margin-bottom: 5px">
+        <form th:action="@{/relationContacts}" class="d-flex justify-content-end">
+            <select class="form-control" name="relation">
+                <option value="">Filter by Contact...</option>
+                <option value="Friend">Friend</option>
+                <option value="Family">Family</option>
+                <option value="Work">Work</option>
+            </select>
+            <input type="submit" class="btn btn-primary ml-2" value="Filter By" />
+        </form>
+    </div>
+</div>
+		<table class="table table-hover text-nowrap">
+			<thead>
+				<tr>
+					<th>Contact Name</th>
+					<th>Contact Phone Number</th>
+					<th>Contact Email</th>
+					<th>Relation</th>
+					<th>Social Media</th>
+					<th>Actions</th>
+				</tr>
+			</thead>
+						<div th:if="${contacts}">
+			
+			<tbody>
+				<tr style="color: white" th:each="contact : ${contacts}">
+					<td><a style="color: green"
+						th:href="@{/view/{cid}(cid=${contact.cId})}"
+						th:text="${contact.cName}" /></a></td>
+					<td th:text="${contact.cPhoneNumber}"></td>
+					<td><a style="color: orange;" target="_blank"
+						href="https://mail.google.com/mail/u/0/?tab=rm&ogbl#inbox?compose=new"
+						th:text="${contact.cEmail}"></a></td>
+					<td th:text="${contact.relation}"></td>
+					<td><a target="_blank"
+						th:href="'https://api.whatsapp.com/send?phone=' + ${contact.cPhoneNumber} + '&text=hello,How are you doing?'"
+						class="whatsapp-button"> <i class="fab fa-whatsapp"></i></a> <a
+						target="_blank"
+						th:href="'https://www.instagram.com/' + ${contact.instagram}"><i
+							class="fab fa-instagram"></i></a>
+							<a target="_blank" th:href="'https://linkedin.com/in/' + ${contact.linkedIn}"
+						class="linkedin-button"> <i class="fab fa-linkedin"></i></a> <a
+						target="_blank"
+						th:href="'https://www.facebook.com/' + ${contact.facebook}"
+						class="facebook-button"> <i class="fa-brands fa-facebook"></i></a></td>
+					<td><a
+						th:href="@{/showFormForUpdate/{cid}(cid=${contact.cId})}"
+						class="btn btn-primary"><i class="fa-solid fa-user-pen"></i></a> <a
+						th:href="@{/deleteContact/{cid}(cid=${contact.cId})}"
+						class="btn btn-danger"><i class="fa-solid fa-user-xmark"></i></a>
+					</td>
+
+				</tr>
+			</tbody>
+		</table>
+		<div th:if="${noResult}">
+			<p align="center" th:text="${noResult}"></p>
+		</div>
+	</div>
+</body>
+</html>

@@ -1,0 +1,47 @@
+body{
+	color:white;
+    width:100%;
+    background-image:url("https://wallpapercave.com/wp/wp9764014.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+.header h1,p{
+    text-align: center;
+    margin-top: 30px;
+    color:white;
+}
+.header a{
+    padding: 5px;
+    text-decoration: none;
+    border: 1px solid black;
+    text-align: center;
+    background-color: white;
+    color: black;
+    margin:40%;
+}
+.lod{
+    width:50%;
+    float: left;
+    margin-top: 30vh;
+
+}
+.reg{
+    width: 49%;
+    float: right;
+    margin-top: 30vh;
+
+}
+.header a:hover{
+    background-color:cadetblue;
+    color: azure;
+    border: white;
+    box-shadow: inset;
+    transition: 0.5s;
+}
+.header td{
+    margin-left: 100px;
+}
+.header table{
+    margin-top: 30vh;
+}
+

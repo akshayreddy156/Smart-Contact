@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="ISO-8859-1">
+<title>Update Contact</title>
+<link
+	th:href="@{https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css}"
+	rel="stylesheet"
+	integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN"
+	crossorigin="anonymous">
+<script
+	src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+	integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
+	crossorigin="anonymous"></script>
+<style type="text/css">
+span {
+color: red;
+}
+li a:hover{
+background-color: blue;
+}
+</style>
+<script>
+        function nameValidate(){
+            if(document.addContact.cName.value.length >15){
+                alert("only 10 letters are allowed");
+            }
+            if(/[^a-zA-Z[\s\]]/.test(document.getElementById("cName").value)){
+                alert("Only Alphabets are allowed")
+            }
+           
+        }
+        function phoneValidation(){
+            var phn=document.getElementById("cPhoneNumber").value
+            var phnT = /^[0-9]{10}$/;
+            if(!(phnT.test(phn))){
+                alert("invalid phone number")
+            }
+        }
+     </script>
+<link rel="stylesheet"
+	href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
+</head>
+<body>
+	<nav class="navbar navbar-expand-lg navbar-light bg-light">
+		<a class="navbar-brand" th:href="@{/homepage}"><b>Smart
+				Contact Book</b></a>
+		<button class="navbar-toggler" type="button" data-toggle="collapse"
+			data-target="#navbarNav" aria-controls="navbarNav"
+			aria-expanded="false" aria-label="Toggle navigation">
+			<span class="navbar-toggler-icon"></span>
+		</button>
+		<div class="collapse navbar-collapse" id="navbarNav">
+			<ul class="navbar-nav">
+				<li class="nav-item"><a class="nav-link"
+					th:href="@{/showContacts}">All Contacts</a></li>
+				<li class="nav-item"><a class="nav-link" th:href="@{/add}"
+					style="background-color: Red">Add Contacts</a></li>
+				<li class="nav-item"><a class="nav-link"
+					th:href="@{/getProfile}">view Profile</a></li>
+				<li class="nav-item"><a class="nav-link" th:href="@{/delete}">Logout</a>
+				</li>
+			</ul>
+		</div>
+	</nav>
+	<div class="container">
+		<div class="container">
+			<div class="row">
+				<div class="col-md-12">
+					<div class="well well-sm">
+						<form class="form-horizontal" th:action="@{/addCont}"
+							th:object="${contact}" method="post" name="addContact">
+							<fieldset>
+								<legend class="text-center header">Update Contact</legend>
+								<!-- Add hidden form field to handle update -->
+								<div class="form-group">
+									<input type="hidden" th:field="*{cId}" />
+								</div>
+								<div class="form-group">
+									<span class="col-md-1 col-md-offset-2 text-center"><i
+										class="fa-solid fa-person">Your Name</i></span>
+									<div class="col-md-8">
+										<input th:field="*{cName}" oninput="nameValidate()"
+											type="text" placeholder="Contact Name" class="form-control">
+									</div>
+								</div>
+								<div class="form-group">
+									<span class="col-md-1 col-md-offset-2 text-center">PhoneNumber</span>
+									<div class="col-md-8">
+										<input th:field="*{cPhoneNumber}" onblur="phoneValidation()"
+											type="tel" placeholder="Phone" class="form-control">
+									</div>
+								</div>
+
+								<div class="form-group">
+									<span class="col-md-1 col-md-offset-2 text-center"><i
+										class="fa-solid fa-envelope-open"></i>Email</span>
+									<div class="col-md-8">
+										<input type="text" th:field="*{cEmail}"
+											placeholder="Email Address" class="form-control">
+									</div>
+								</div>
+
+								<div class="form-group">
+									<span class="col-md-1 col-md-offset-2 text-center"><i
+										class="fa-solid fa-calendar-days"></i>Date Of Birth</span>
+									<div class="col-md-8">
+										<input th:field="*{birthDay}" type="date" class="form-control">
+									</div>
+								</div>
+								<div class="form-group">
+									<span class="col-md-1 col-md-offset-2 text-center"><i
+										class="fa-brands fa-instagram">Instagram</i></span>
+									<div class="col-md-8">
+										<input th:field="*{instagram}" type="text"
+											class="form-control">
+									</div>
+								</div>
+
+								<div class="form-group">
+									<span class="col-md-1 col-md-offset-2 text-center"><i
+										class="fa-brands fa-linkedin"></i>LinkedIn</span>
+									<div class="col-md-8">
+										<input th:field="*{linkedIn}" type="text" class="form-control">
+									</div>
+								</div>
+
+								<div class="form-group">
+									<span class="col-md-1 col-md-offset-2 text-center"><i
+										class="fa-brands fa-facebook"></i>Facebook</span>
+									<div class="col-md-8">
+										<input th:field="*{facebook}" type="text" class="form-control">
+									</div>
+								</div>
+
+								<div class="form-group">
+									<span class="col-md-1 col-md-offset-2 text-center"><i
+										class="fa-solid fa-user-group"></i></span> <strong>Relation</strong>
+									<div class="form-check form-check-inline">
+										<input class="form-check-input" type="radio"
+											field="*{relation}" name="relation" id="option1"
+											value="Friend"> <label class="form-check-label"
+											for="option1">Friend</label>
+									</div>
+									<div class="form-check form-check-inline">
+										<input class="form-check-input" type="radio"
+											field="*{relation}" name="relation" id="option2"
+											value="Family"> <label class="form-check-label"
+											for="option2">Family</label>
+									</div>
+									<div class="form-check form-check-inline">
+										<input class="form-check-input" type="radio"
+											field="*{relation}" name="relation" id="option3" value="Work">
+										<label class="form-check-label" for="option3">Work</label>
+									</div>
+								</div>
+								<div class="form-group">
+									<input type="hidden" field="*{cuid}">
+								</div>
+
+
+								<br>
+
+								<div class="form-group">
+									<div class="col-md-12 text-center">
+										<button type="submit" class="btn btn-primary btn-lg">Update</button>
+									</div>
+								</div>
+							</fieldset>
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<a style="padding: 10px;border: 1px solid white;margin: 10px;background-color:LightGray;color: black;text-decoration: none" th:href="@{/showContacts}"> Back to All Contacts</a>
+	</div>
+</body>
+</html>
